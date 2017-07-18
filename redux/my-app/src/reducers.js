@@ -23,14 +23,15 @@ function todoReducer(state = [], action) {
         case 'ADD_TODO' :
             return [
                 ...state,
-                {
+                {   
+                    id : action.id,
                     text : action.text,
                     completed : false
                 }
                 ];
         case 'COMPLETE_TODO' : 
             return state.map( (todo, index) => {
-                        if(action.index === index){
+                        if(action.id === todo.id){
                         //change that one todo from todeos array, create new
                             return Object.assign({}, todo, {
                                 completed : !todo.completed
@@ -45,7 +46,7 @@ function todoReducer(state = [], action) {
 
 const todoApp = combineReducers({
     visibilityFilter : setVisibilityFilterReducer,
-    todoes : todoReducer
+    todos : todoReducer
 });
 
 export default todoApp;

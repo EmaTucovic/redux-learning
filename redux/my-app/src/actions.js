@@ -3,27 +3,29 @@ export const VisibilityFilters = {
   SHOW_COMPLETED: 'SHOW_COMPLETED',
   SHOW_ACTIVE: 'SHOW_ACTIVE'
 }
-
+let nextTodoId = 0;
 //******************  Actions ****************
 
 //action fabrique
 export function addTodo(text) {
     return {
         type: 'ADD_TODO',
-        text
+        text,
+        id : nextTodoId ++
     }
 }
 
 //action fabrique
-export function completeTodo(index) {
+export function completeTodo(id) {
     return {
         type : 'COMPLETE_TODO',
-        index
+        id
     }
 }
 
 export function setVisibilityFilter(filter) {
   return { 
       type: 'SET_VISIBILITY_FILTER',
-      filter }
+      filter 
+    }
 }
