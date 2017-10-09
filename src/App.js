@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 // import './App.css';
 
-const HOC = (InnerCommponent) => {
-  return class extends Component {
+class Mouse extends Component {
     
     state = {x : 0, y :0};
 
@@ -14,36 +13,34 @@ const HOC = (InnerCommponent) => {
     render() {
       return (
         <div style={{ height: '100%' }} onMouseMove = {this.mouseMoveHandler}>
-          Hi from HOC.
-          <InnerCommponent message = "hello" coordinates = {this.state} />
+          {this.props.children(this.state)}
         </div>
       )
     }
   }
-}
+
 
 
 class DisplayCoordinants extends Component {
   render() {
-    const {x,y} = this.props.coordinates;
 
     return (
-      <div>
-       The mouse position is ({x},{y}), the message is {this.props.message} but from inner componet.
-      </div>
+      <Mouse>
+        {mouseState => (
+          <div style = {{height:'100%'}}>
+            The mouse position is ({mouseState.x},{mouseState.y}), the message is {this.props.message}.
+          </div>
+        )}
+      </Mouse>
     );
   }
 }
 
 
-const MyApp = HOC(DisplayCoordinants);
-
-
-
 class App extends Component {
   render() {
     return (
-        <MyApp/>
+        <DisplayCoordinants message = "hello"/>
     );
   }
 }
